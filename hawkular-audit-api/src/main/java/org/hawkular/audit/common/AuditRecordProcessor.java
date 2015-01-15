@@ -1,5 +1,6 @@
 package org.hawkular.audit.common;
 
+import javax.jms.ConnectionFactory;
 import javax.jms.JMSException;
 
 import org.hawkular.bus.common.ConnectionContextFactory;
@@ -19,6 +20,16 @@ public class AuditRecordProcessor extends ConnectionContextFactory {
 
     public AuditRecordProcessor(String brokerURL) throws JMSException {
         super(brokerURL);
+        msgProcessor = new MessageProcessor();
+    }
+
+    public AuditRecordProcessor(String brokerURL, String username, String password) throws JMSException {
+        super(brokerURL, username, password);
+        msgProcessor = new MessageProcessor();
+    }
+
+    public AuditRecordProcessor(ConnectionFactory connectionFactory) throws JMSException {
+        super(connectionFactory);
         msgProcessor = new MessageProcessor();
     }
 
@@ -50,6 +61,6 @@ public class AuditRecordProcessor extends ConnectionContextFactory {
      * @return the endpoint used for all audit messages
      */
     protected Endpoint getEndpoint() {
-        return new Endpoint(Type.QUEUE, "audit");
+        return new Endpoint(Type.QUEUE, "AuditQueue");
     }
 }

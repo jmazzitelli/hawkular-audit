@@ -75,7 +75,7 @@ public class DataSourceConsumer extends BasicMessageListener<AuditRecord> {
                     final Subsystem subsystem = auditRecord.getSubsystem();
                     final long timestamp = auditRecord.getTimestamp();
 
-                    final String sql = String.format("INSERT INTO RHQ_AUDIT " + //
+                    final String sql = String.format("INSERT INTO HAWKULAR_AUDIT " + //
                             "(ID, CORRELATION_ID, SUBSYSTEM, AUDIT_TIME, MESSAGE, DETAILS) " + //
                             "VALUES ('%s', '%s', '%s', %d, '%s', '%s')", //
                             id, corId, subsystem, timestamp, msg, details);
@@ -84,7 +84,7 @@ public class DataSourceConsumer extends BasicMessageListener<AuditRecord> {
 
                 @Override
                 public void createSchema(DataSource ds) {
-                    String createString = "CREATE TABLE RHQ_AUDIT (" + //
+                    String createString = "CREATE TABLE HAWKULAR_AUDIT (" + //
                             "ID VARCHAR(512) NULL," + //
                             "CORRELATION_ID VARCHAR(512) NULL," + //
                             "SUBSYSTEM VARCHAR(512) NULL," + //
@@ -96,7 +96,7 @@ public class DataSourceConsumer extends BasicMessageListener<AuditRecord> {
                     try {
                         conn = ds.getConnection();
                         DatabaseMetaData metadata = conn.getMetaData();
-                        ResultSet tables = metadata.getTables(null, null, "RHQ_AUDIT", new String[] { "TABLE" });
+                        ResultSet tables = metadata.getTables(null, null, "HAWKULAR_AUDIT", new String[] { "TABLE" });
                         if (!tables.next()) {
                             Statement stmt = conn.createStatement();
                             stmt.executeUpdate(createString);

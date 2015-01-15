@@ -1,26 +1,30 @@
 package org.hawkular.audit;
 
 import javax.annotation.PostConstruct;
-import javax.ejb.ConcurrencyManagement;
-import javax.ejb.ConcurrencyManagementType;
+import javax.annotation.Resource;
 import javax.ejb.Singleton;
 import javax.ejb.Startup;
-import javax.ejb.TransactionAttribute;
-import javax.ejb.TransactionAttributeType;
+import javax.jms.ConnectionFactory;
 
+import org.hawkular.audit.common.AuditRecord;
+import org.hawkular.audit.common.AuditRecordProcessor;
+import org.hawkular.audit.common.Subsystem;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 @Startup
 @Singleton
-@TransactionAttribute(TransactionAttributeType.NOT_SUPPORTED)
-@ConcurrencyManagement(ConcurrencyManagementType.BEAN)
 public class AuditStartupBean {
     private final Logger log = LoggerFactory.getLogger(AuditStartupBean.class);
 
+    @Resource(mappedName = "java:/HawkularBusConnectionFactory")
+    private ConnectionFactory connectionFactory;
+
     @PostConstruct
-    public void init() {
-        log.info("Audit subsystem initializing");
-        return;
+    public void init() throws Exception {
+        log.info("Audit subsystem starting up");
+        AuditRecordProcessor processor = new AuditRecordProcessor(this.connectionFactory);
+        AuditRecord record = new AuditRecord("Audit subsystem starting up", new Subsystem("STARTUP"));
+        processor.sendAuditRecord(record);
     }
 }

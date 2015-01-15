@@ -136,7 +136,7 @@
         </subsystem>
         <subsystem xmlns="urn:jboss:domain:datasources:2.0">
             <datasources>
-                <datasource jndi-name="java:jboss/datasources/HawkularAuditDS" pool-name="H2DS" enabled="true" use-java-context="true">
+                <datasource jndi-name="java:jboss/datasources/HawkularAuditDS" pool-name="HawkularH2DS" enabled="true" use-java-context="true">
                     <connection-url>jdbc:h2:mem:test;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=FALSE</connection-url>
                     <driver>h2</driver>
                     <security>
@@ -416,8 +416,8 @@
                 <property name="custom-prop" value="custom-prop-val"/>
             </custom-configuration>
         </subsystem>
-        <subsystem xmlns="urn:org.rhq.next:agent:1.0" enabled="true">
-            <agent-name>autogenerate</agent-name>
+        <subsystem xmlns="urn:org.hawkular.nest:nest:1.0" enabled="true">
+            <nest-name>autogenerate</nest-name>
             <custom-configuration>
                 <property name="custom-prop" value="custom-prop-val"/>
             </custom-configuration>

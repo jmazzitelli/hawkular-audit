@@ -13,7 +13,7 @@ import org.hawkular.audit.consumer.DataSourceConsumer;
  @ActivationConfigProperty(propertyName = "destinationType", propertyValue = "javax.jms.Queue"),
         @ActivationConfigProperty(propertyName = "destination", propertyValue = "AuditQueue") })
 public class AuditMDB extends DataSourceConsumer {
-    @Resource(mappedName = "java:jboss/datasources/RHQAuditDS")
+    @Resource(mappedName = "java:jboss/datasources/HawkularAuditDS")
     private DataSource auditDataSource;
 
     @PostConstruct
