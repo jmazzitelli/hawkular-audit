@@ -21,10 +21,18 @@ public class AuditStartupBean {
     private ConnectionFactory connectionFactory;
 
     @PostConstruct
-    public void init() throws Exception {
+    public void init() {
         log.info("Audit subsystem starting up");
-        AuditRecordProcessor processor = new AuditRecordProcessor(this.connectionFactory);
-        AuditRecord record = new AuditRecord("Audit subsystem starting up", new Subsystem("STARTUP"));
-        processor.sendAuditRecord(record);
+
+        try {
+            String nodeName = System.getProperty("jboss.node.name", "-unknown-");
+            String msg = "Audit subsystem starting up on [" + nodeName + "]";
+            AuditRecordProcessor processor = new AuditRecordProcessor(this.connectionFactory);
+            AuditRecord record = new AuditRecord(msg, new Subsystem("STARTUP"));
+            processor.sendAuditRecord(record);
+        } catch (Exception e) {
+            log.error("Cannot send initial audit subsystem startup message");
+            throw new RuntimeException(e);
+        }
     }
 }
