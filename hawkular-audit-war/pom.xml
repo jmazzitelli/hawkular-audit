@@ -47,18 +47,6 @@
       <scope>provided</scope>
     </dependency>
 
-    <dependency>
-      <groupId>org.jboss.logging</groupId>
-      <artifactId>jboss-logging</artifactId>
-      <scope>provided</scope>
-    </dependency>
-
-    <dependency>
-      <groupId>org.jboss.logging</groupId>
-      <artifactId>jboss-logging-annotations</artifactId>
-      <scope>provided</scope>
-    </dependency>
-
     <!-- these will be provided by our RA - the MDB itself will never need ActiveMQ specific classes -->
     <dependency>
       <groupId>org.apache.activemq</groupId>
@@ -83,6 +71,13 @@
     <dependency>
       <groupId>org.jboss.spec.javax.servlet</groupId>
       <artifactId>jboss-servlet-api_3.1_spec</artifactId>
+      <scope>provided</scope>
+    </dependency>
+
+    <!-- for logging annotations - it is not needed at runtime -->
+    <dependency>
+      <groupId>org.jboss.logging</groupId>
+      <artifactId>jboss-logging-annotations</artifactId>
       <scope>provided</scope>
     </dependency>
 
