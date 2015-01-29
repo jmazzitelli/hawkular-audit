@@ -9,13 +9,12 @@ import javax.jms.ConnectionFactory;
 import org.hawkular.audit.common.AuditRecord;
 import org.hawkular.audit.common.AuditRecordProcessor;
 import org.hawkular.audit.common.Subsystem;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import org.jboss.logging.Logger;
 
 @Startup
 @Singleton
 public class AuditStartupBean {
-    private final Logger log = LoggerFactory.getLogger(AuditStartupBean.class);
+    private final Logger log = Logger.getLogger(AuditStartupBean.class);
 
     @Resource(mappedName = "java:/HawkularBusConnectionFactory")
     private ConnectionFactory connectionFactory;

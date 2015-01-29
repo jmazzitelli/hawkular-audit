@@ -6,8 +6,7 @@ import org.hawkular.audit.common.AuditRecord;
 import org.hawkular.audit.common.Subsystem;
 import org.hawkular.bus.common.MessageId;
 import org.hawkular.bus.common.consumer.BasicMessageListener;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import org.jboss.logging.Logger;
 
 /**
  * A very simple audit record consumer that merely logs the audit record via a logger.
@@ -24,7 +23,8 @@ public class LoggerConsumer extends BasicMessageListener<AuditRecord> {
         final Subsystem subsystem = basicMessage.getSubsystem();
         final long timestamp = basicMessage.getTimestamp();
 
-        Logger logger = LoggerFactory.getLogger("AUDIT." + subsystem);
-        logger.info("id=[{}], correlation=[{}], timestamp=[{}], subsystem=[{}], msg=[{}], details=[{}],", id, corId, timestamp, subsystem, msg, details);
+        Logger logger = Logger.getLogger("AUDIT." + subsystem);
+        logger.infof("id=[%s], correlation=[%s], timestamp=[%d], subsystem=[%s], msg=[%s], details=[%s],", id, corId,
+                timestamp, subsystem, msg, details);
     }
 }

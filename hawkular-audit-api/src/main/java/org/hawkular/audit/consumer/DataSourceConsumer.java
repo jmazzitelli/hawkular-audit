@@ -13,8 +13,7 @@ import org.hawkular.audit.common.AuditRecord;
 import org.hawkular.audit.common.Subsystem;
 import org.hawkular.bus.common.MessageId;
 import org.hawkular.bus.common.consumer.BasicMessageListener;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import org.jboss.logging.Logger;
 
 /**
  * Stores audit records in the backend data store via the given DataSource.
@@ -22,7 +21,7 @@ import org.slf4j.LoggerFactory;
  * @author John Mazzitelli
  */
 public class DataSourceConsumer extends BasicMessageListener<AuditRecord> {
-    private final Logger log = LoggerFactory.getLogger(DataSourceConsumer.class);
+    private final Logger log = Logger.getLogger(DataSourceConsumer.class);
 
     private DataSource dataSource;
     private SqlGenerator sqlGenerator;
