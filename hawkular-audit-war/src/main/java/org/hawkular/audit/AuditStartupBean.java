@@ -9,19 +9,20 @@ import javax.jms.ConnectionFactory;
 import org.hawkular.audit.common.AuditRecord;
 import org.hawkular.audit.common.AuditRecordProcessor;
 import org.hawkular.audit.common.Subsystem;
+import org.hawkular.audit.log.MsgLogger;
 import org.jboss.logging.Logger;
 
 @Startup
 @Singleton
 public class AuditStartupBean {
-    private final Logger log = Logger.getLogger(AuditStartupBean.class);
+    private final MsgLogger msglog = Logger.getMessageLogger(MsgLogger.class, this.getClass().getPackage().getName());
 
     @Resource(mappedName = "java:/HawkularBusConnectionFactory")
     private ConnectionFactory connectionFactory;
 
     @PostConstruct
     public void init() {
-        log.info("Audit subsystem starting up");
+        msglog.infoAuditSubsystemStartingUpNot();
 
         try {
             String nodeName = System.getProperty("jboss.node.name", "-unknown-");
@@ -30,7 +31,7 @@ public class AuditStartupBean {
             AuditRecord record = new AuditRecord(msg, new Subsystem("STARTUP"));
             processor.sendAuditRecord(record);
         } catch (Exception e) {
-            log.error("Cannot send initial audit subsystem startup message");
+            msglog.errorCannotSendInitialStartupMessage(e.toString());
             throw new RuntimeException(e);
         }
     }
