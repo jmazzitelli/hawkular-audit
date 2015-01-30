@@ -11,6 +11,7 @@ import javax.sql.DataSource;
 
 import org.hawkular.audit.common.AuditRecord;
 import org.hawkular.audit.common.Subsystem;
+import org.hawkular.audit.common.log.MsgLogger;
 import org.hawkular.bus.common.MessageId;
 import org.hawkular.bus.common.consumer.BasicMessageListener;
 import org.jboss.logging.Logger;
@@ -21,7 +22,8 @@ import org.jboss.logging.Logger;
  * @author John Mazzitelli
  */
 public class DataSourceConsumer extends BasicMessageListener<AuditRecord> {
-    private final Logger log = Logger.getLogger(DataSourceConsumer.class);
+    private final MsgLogger msglog = Logger.getMessageLogger(MsgLogger.class, DataSourceConsumer.class.getPackage()
+            .getName());
 
     private DataSource dataSource;
     private SqlGenerator sqlGenerator;
@@ -99,18 +101,18 @@ public class DataSourceConsumer extends BasicMessageListener<AuditRecord> {
                         if (!tables.next()) {
                             Statement stmt = conn.createStatement();
                             stmt.executeUpdate(createString);
-                            log.info("Audit schema has been created");
+                            msglog.infoAuditSchemaCreated();
                         } else {
-                            log.info("Audit schema exists.");
+                            msglog.infoAuditSchemaExists();
                         }
                     } catch (SQLException sqle) {
-                        log.error("Failed to create audit schema - audit subsystem is most likely in a bad state", sqle);
+                        msglog.errorAuditSchemaFailedCreation(sqle);
                     } finally {
                         if (conn != null) {
                             try {
                                 conn.close();
                             } catch (SQLException sqle) {
-                                log.error("Failed to close connection", sqle);
+                                msglog.errorFailedToCloseConnection(sqle);
                             }
                         }
                     }
@@ -152,7 +154,7 @@ public class DataSourceConsumer extends BasicMessageListener<AuditRecord> {
                 conn.close();
             }
         } catch (SQLException e) {
-            getLog().error("Audit record did not properly get inserted into datasource using sql [{}]", sql, e);
+            getLog().error("Audit record did not properly get inserted into datasource using sql [%s]", sql, e);
         }
     }
 }

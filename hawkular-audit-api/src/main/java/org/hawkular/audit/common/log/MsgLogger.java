@@ -14,26 +14,34 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.hawkular.audit.log;
+package org.hawkular.audit.common.log;
 
 import org.jboss.logging.Logger.Level;
+import org.jboss.logging.annotations.Cause;
 import org.jboss.logging.annotations.LogMessage;
 import org.jboss.logging.annotations.Message;
 import org.jboss.logging.annotations.MessageLogger;
 import org.jboss.logging.annotations.ValidIdRange;
 
-
 /**
  * @author John Mazzitelli
  */
 @MessageLogger(projectCode = "HAWKAUDIT")
-@ValidIdRange(min = 2000, max = 2999)
+@ValidIdRange(min = 1000, max = 1999)
 public interface MsgLogger {
     @LogMessage(level = Level.INFO)
-    @Message(id = 2000, value = "Audit subsystem starting up")
-    void infoAuditSubsystemStartingUpNot();
+    @Message(id = 1000, value = "Audit schema has been created")
+    void infoAuditSchemaCreated();
+
+    @LogMessage(level = Level.INFO)
+    @Message(id = 1001, value = "Audit schema already exists")
+    void infoAuditSchemaExists();
 
     @LogMessage(level = Level.ERROR)
-    @Message(id = 2001, value = "Cannot send initial audit subsystem startup message: %s")
-    void errorCannotSendInitialStartupMessage(String causeString);
+    @Message(id = 1002, value = "Failed to create audit schema - audit subsystem is most likely in a bad state")
+    void errorAuditSchemaFailedCreation(@Cause Throwable t);
+
+    @LogMessage(level = Level.ERROR)
+    @Message(id = 1003, value = "Failed to close connection")
+    void errorFailedToCloseConnection(@Cause Throwable t);
 }
