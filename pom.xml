@@ -1,253 +1,270 @@
 <?xml version="1.0" encoding="UTF-8"?>
+<!--
 
+    Copyright 2015 Red Hat, Inc. and/or its affiliates
+    and other contributors as indicated by the @author tags.
+
+    Licensed under the Apache License, Version 2.0 (the "License");
+    you may not use this file except in compliance with the License.
+    You may obtain a copy of the License at
+
+       http://www.apache.org/licenses/LICENSE-2.0
+
+    Unless required by applicable law or agreed to in writing, software
+    distributed under the License is distributed on an "AS IS" BASIS,
+    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+    See the License for the specific language governing permissions and
+    limitations under the License.
+
+-->
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+  <modelVersion>4.0.0</modelVersion>
 
-    <modelVersion>4.0.0</modelVersion>
+  <groupId>org.hawkular.audit</groupId>
+  <artifactId>hawkular-audit-parent</artifactId>
+  <version>1.0.0.Alpha1-SNAPSHOT</version>
+  <packaging>pom</packaging>
+  <name>Hawkular Audit Parent</name>
+  <inceptionYear>2015</inceptionYear>
 
-    <groupId>org.hawkular.audit</groupId>
-    <artifactId>hawkular-audit-parent</artifactId>
-    <version>1.0.0.Alpha1-SNAPSHOT</version>
-    <packaging>pom</packaging>
-    <name>Hawkular Audit Parent</name>
-    <inceptionYear>2015</inceptionYear>
+  <repositories>
+    <!-- Conventions are described in http://community.jboss.org/wiki/MavenGettingStarted-Developers -->
+    <repository>
+      <id>jboss-public-repository-group</id>
+      <name>JBoss Public Repository Group</name>
+      <url>http://repository.jboss.org/nexus/content/groups/public/</url>
+      <releases>
+        <enabled>true</enabled>
+        <updatePolicy>never</updatePolicy>
+      </releases>
+      <snapshots>
+        <enabled>true</enabled>
+        <updatePolicy>daily</updatePolicy>
+      </snapshots>
+    </repository>
+  </repositories>
 
-    <repositories>
-        <!-- Conventions are described in http://community.jboss.org/wiki/MavenGettingStarted-Developers -->
-        <repository>
-            <id>jboss-public-repository-group</id>
-            <name>JBoss Public Repository Group</name>
-            <url>http://repository.jboss.org/nexus/content/groups/public/</url>
-            <releases>
-                <enabled>true</enabled>
-                <updatePolicy>never</updatePolicy>
-            </releases>
-            <snapshots>
-                <enabled>true</enabled>
-                <updatePolicy>daily</updatePolicy>
-            </snapshots>
-        </repository>
-    </repositories>
+  <pluginRepositories>
+    <pluginRepository>
+      <id>jboss-public-repository-group</id>
+      <name>JBoss Public Repository Group</name>
+      <url>http://repository.jboss.org/nexus/content/groups/public/</url>
+      <releases>
+        <enabled>true</enabled>
+      </releases>
+      <snapshots>
+        <enabled>true</enabled>
+      </snapshots>
+    </pluginRepository>
+  </pluginRepositories>
 
-    <pluginRepositories>
-        <pluginRepository>
-            <id>jboss-public-repository-group</id>
-            <name>JBoss Public Repository Group</name>
-            <url>http://repository.jboss.org/nexus/content/groups/public/</url>
-            <releases>
-                <enabled>true</enabled>
-            </releases>
-            <snapshots>
-                <enabled>true</enabled>
-            </snapshots>
-        </pluginRepository>
-    </pluginRepositories>
+  <modules>
+    <module>hawkular-audit-api</module>
+    <module>hawkular-audit-war</module>
+    <module>hawkular-audit-distro</module>
+  </modules>
 
-    <modules>
-        <module>hawkular-audit-api</module>
-        <module>hawkular-audit-war</module>
-        <module>hawkular-audit-distro</module>
-    </modules>
+  <properties>
+    <!-- MAVEN VERSIONS -->
 
-    <properties>
-        <!-- MAVEN VERSIONS -->
+    <maven-compiler-source-version>1.7</maven-compiler-source-version>
+    <maven-compiler-target-version>1.7</maven-compiler-target-version>
 
-        <maven-compiler-source-version>1.7</maven-compiler-source-version>
-        <maven-compiler-target-version>1.7</maven-compiler-target-version>
+    <plugin.version.org.apache.maven.plugins-maven-antrun-plugin>1.7</plugin.version.org.apache.maven.plugins-maven-antrun-plugin>
+    <plugin.version.org.apache.maven.plugins-maven-assembly-plugin>2.4</plugin.version.org.apache.maven.plugins-maven-assembly-plugin>
+    <plugin.version.org.apache.maven.plugins-maven-compiler-plugin>2.5.1</plugin.version.org.apache.maven.plugins-maven-compiler-plugin>
+    <plugin.version.org.apache.maven.plugins-maven-enforcer-plugin>1.3.1</plugin.version.org.apache.maven.plugins-maven-enforcer-plugin>
+    <plugin.version.org.apache.maven.plugins-maven-jar-plugin>2.4</plugin.version.org.apache.maven.plugins-maven-jar-plugin>
+    <plugin.version.org.apache.maven.plugins-maven-surefire-plugin>2.12.4</plugin.version.org.apache.maven.plugins-maven-surefire-plugin>
+    <plugin.version.org.bsc.maven-maven-processor-plugin>2.0.2</plugin.version.org.bsc.maven-maven-processor-plugin>
+    <plugin.version.org.codehaus.mojo-exec-maven-plugin>1.3.1</plugin.version.org.codehaus.mojo-exec-maven-plugin>
 
-        <plugin.version.org.apache.maven.plugins-maven-antrun-plugin>1.7</plugin.version.org.apache.maven.plugins-maven-antrun-plugin>
-        <plugin.version.org.apache.maven.plugins-maven-assembly-plugin>2.4</plugin.version.org.apache.maven.plugins-maven-assembly-plugin>
-        <plugin.version.org.apache.maven.plugins-maven-compiler-plugin>2.5.1</plugin.version.org.apache.maven.plugins-maven-compiler-plugin>
-        <plugin.version.org.apache.maven.plugins-maven-enforcer-plugin>1.3.1</plugin.version.org.apache.maven.plugins-maven-enforcer-plugin>
-        <plugin.version.org.apache.maven.plugins-maven-jar-plugin>2.4</plugin.version.org.apache.maven.plugins-maven-jar-plugin>
-        <plugin.version.org.apache.maven.plugins-maven-surefire-plugin>2.12.4</plugin.version.org.apache.maven.plugins-maven-surefire-plugin>
-        <plugin.version.org.bsc.maven-maven-processor-plugin>2.0.2</plugin.version.org.bsc.maven-maven-processor-plugin>
-        <plugin.version.org.codehaus.mojo-exec-maven-plugin>1.3.1</plugin.version.org.codehaus.mojo-exec-maven-plugin>
+    <!-- DEPENDENCY VERSIONS -->
 
-        <!-- DEPENDENCY VERSIONS -->
+    <!-- CONVENTIONS: -->
+    <!-- - A version property must be specified in the format "version.{groupId}", optionally with a suffix to make it unique. -->
+    <!-- - Version properties must be sorted alphabetically -->
 
-        <!-- CONVENTIONS: -->
-        <!-- - A version property must be specified in the format "version.{groupId}", optionally with a suffix to make it unique. -->
-        <!-- - Version properties must be sorted alphabetically -->
+    <version.org.hawkular.bus>1.0.0.Alpha1-SNAPSHOT</version.org.hawkular.bus>
+    <version.org.hawkular.nest>1.0.0.Alpha1-SNAPSHOT</version.org.hawkular.nest>
+    <version.org.mockito>1.9.0</version.org.mockito>
+    <version.org.jboss.logging-jboss-logging-annotations>1.2.0.Final</version.org.jboss.logging-jboss-logging-annotations>
+    <version.org.jboss.logging-jboss-logging-processor>1.2.0.Final</version.org.jboss.logging-jboss-logging-processor>
+    <version.org.wildfly>8.2.0.Final</version.org.wildfly>
+  </properties>
 
-        <version.org.hawkular.bus>1.0.0.Alpha1-SNAPSHOT</version.org.hawkular.bus>
-        <version.org.hawkular.nest>1.0.0.Alpha1-SNAPSHOT</version.org.hawkular.nest>
-        <version.org.mockito>1.9.0</version.org.mockito>
-        <version.org.jboss.logging-jboss-logging-annotations>1.2.0.Final</version.org.jboss.logging-jboss-logging-annotations>
-        <version.org.jboss.logging-jboss-logging-processor>1.2.0.Final</version.org.jboss.logging-jboss-logging-processor>
-        <version.org.wildfly>8.2.0.Final</version.org.wildfly>
-    </properties>
+  <dependencyManagement>
+    <dependencies>
+      <!-- import hawkular-bus-parent pom so we can pick up the versions it uses in its dependency management section -->
+      <dependency>
+        <groupId>org.hawkular.bus</groupId>
+        <artifactId>hawkular-bus-parent</artifactId>
+        <version>${version.org.hawkular.bus}</version>
+        <type>pom</type>
+        <scope>import</scope>
+      </dependency>
 
-    <dependencyManagement>
-        <dependencies>
-            <!-- import hawkular-bus-parent pom so we can pick up the versions it uses in its dependency management section -->
-            <dependency>
-                <groupId>org.hawkular.bus</groupId>
-                <artifactId>hawkular-bus-parent</artifactId>
-                <version>${version.org.hawkular.bus}</version>
-                <type>pom</type>
-                <scope>import</scope>
-            </dependency>
+      <dependency>
+        <groupId>org.hawkular.bus</groupId>
+        <artifactId>hawkular-bus-common</artifactId>
+        <version>${version.org.hawkular.bus}</version>
+      </dependency>
 
-            <dependency>
-                <groupId>org.hawkular.bus</groupId>
-                <artifactId>hawkular-bus-common</artifactId>
-                <version>${version.org.hawkular.bus}</version>
-            </dependency>
+      <dependency>
+        <groupId>org.hawkular.bus</groupId>
+        <artifactId>hawkular-bus-mdb</artifactId>
+        <version>${version.org.hawkular.bus}</version>
+      </dependency>
 
-            <dependency>
-                <groupId>org.hawkular.bus</groupId>
-                <artifactId>hawkular-bus-mdb</artifactId>
-                <version>${version.org.hawkular.bus}</version>
-            </dependency>
+      <dependency>
+        <groupId>org.hawkular.bus</groupId>
+        <artifactId>hawkular-bus-test-common</artifactId>
+        <version>${version.org.hawkular.bus}</version>
+      </dependency>
 
-            <dependency>
-                <groupId>org.hawkular.bus</groupId>
-                <artifactId>hawkular-bus-test-common</artifactId>
-                <version>${version.org.hawkular.bus}</version>
-            </dependency>
+      <dependency>
+        <groupId>org.hawkular.nest</groupId>
+        <artifactId>hawkular-nest-distro</artifactId>
+        <version>${version.org.hawkular.nest}</version>
+        <classifier>distribution</classifier>
+        <type>zip</type>
+      </dependency>
 
-            <dependency>
-                <groupId>org.hawkular.nest</groupId>
-                <artifactId>hawkular-nest-distro</artifactId>
-                <version>${version.org.hawkular.nest}</version>
-                <classifier>distribution</classifier>
-                <type>zip</type>
-            </dependency>
+      <dependency>
+        <groupId>org.jboss.logging</groupId>
+        <artifactId>jboss-logging-annotations</artifactId>
+        <version>${version.org.jboss.logging-jboss-logging-annotations}</version>
+      </dependency>
 
-            <dependency>
-                <groupId>org.jboss.logging</groupId>
-                <artifactId>jboss-logging-annotations</artifactId>
-                <version>${version.org.jboss.logging-jboss-logging-annotations}</version>
-            </dependency>
+      <dependency>
+        <groupId>org.mockito</groupId>
+        <artifactId>mockito-core</artifactId>
+        <version>${version.org.mockito}</version>
+      </dependency>
 
-            <dependency>
-                <groupId>org.mockito</groupId>
-                <artifactId>mockito-core</artifactId>
-                <version>${version.org.mockito}</version>
-            </dependency>
+    </dependencies>
+  </dependencyManagement>
 
-        </dependencies>
-    </dependencyManagement>
+  <profiles>
+    <profile>
+      <id>test.debug</id>
+      <activation>
+        <property>
+          <name>test.debug</name>
+        </property>
+      </activation>
 
-    <profiles>
-        <profile>
-            <id>test.debug</id>
-            <activation>
-                <property>
-                    <name>test.debug</name>
-                </property>
-            </activation>
+      <properties>
+        <!-- See: http://maven.apache.org/plugins/maven-surefire-plugin/test-mojo.html#debugForkedProcess -->
+        <maven.surefire.debug>-Xdebug -Xnoagent -Djava.compiler=NONE
+          -Xrunjdwp:transport=dt_socket,address=8787,server=y,suspend=y</maven.surefire.debug>
+      </properties>
+    </profile>
+  </profiles>
 
-            <properties>
-                <!-- See: http://maven.apache.org/plugins/maven-surefire-plugin/test-mojo.html#debugForkedProcess -->
-                <maven.surefire.debug>-Xdebug -Xnoagent -Djava.compiler=NONE -Xrunjdwp:transport=dt_socket,address=8787,server=y,suspend=y</maven.surefire.debug>
-            </properties>
-        </profile>
-    </profiles>
+  <build>
+    <pluginManagement>
+      <plugins>
+        <plugin>
+          <groupId>org.apache.maven.plugins</groupId>
+          <artifactId>maven-antrun-plugin</artifactId>
+          <version>${plugin.version.org.apache.maven.plugins-maven-antrun-plugin}</version>
+        </plugin>
 
-    <build>
-        <pluginManagement>
-            <plugins>
-                <plugin>
-                    <groupId>org.apache.maven.plugins</groupId>
-                    <artifactId>maven-antrun-plugin</artifactId>
-                    <version>${plugin.version.org.apache.maven.plugins-maven-antrun-plugin}</version>
-                </plugin>
+        <plugin>
+          <groupId>org.apache.maven.plugins</groupId>
+          <artifactId>maven-assembly-plugin</artifactId>
+          <version>${plugin.version.org.apache.maven.plugins-maven-assembly-plugin}</version>
+          <configuration>
+            <tarLongFileMode>gnu</tarLongFileMode>
+          </configuration>
+        </plugin>
 
-                <plugin>
-                    <groupId>org.apache.maven.plugins</groupId>
-                    <artifactId>maven-assembly-plugin</artifactId>
-                    <version>${plugin.version.org.apache.maven.plugins-maven-assembly-plugin}</version>
-                    <configuration>
-                        <tarLongFileMode>gnu</tarLongFileMode>
-                    </configuration>
-                </plugin>
+        <plugin>
+          <groupId>org.apache.maven.plugins</groupId>
+          <artifactId>maven-compiler-plugin</artifactId>
+          <version>${plugin.version.org.apache.maven.plugins-maven-compiler-plugin}</version>
+        </plugin>
 
-                <plugin>
-                    <groupId>org.apache.maven.plugins</groupId>
-                    <artifactId>maven-compiler-plugin</artifactId>
-                    <version>${plugin.version.org.apache.maven.plugins-maven-compiler-plugin}</version>
-                </plugin>
+        <plugin>
+          <groupId>org.apache.maven.plugins</groupId>
+          <artifactId>maven-enforcer-plugin</artifactId>
+          <version>${plugin.version.org.apache.maven.plugins-maven-enforcer-plugin}</version>
+        </plugin>
 
-                <plugin>
-                    <groupId>org.apache.maven.plugins</groupId>
-                    <artifactId>maven-enforcer-plugin</artifactId>
-                    <version>${plugin.version.org.apache.maven.plugins-maven-enforcer-plugin}</version>
-                </plugin>
+        <plugin>
+          <groupId>org.apache.maven.plugins</groupId>
+          <artifactId>maven-jar-plugin</artifactId>
+          <version>${plugin.version.org.apache.maven.plugins-maven-jar-plugin}</version>
+          <configuration>
+            <archive>
+              <manifest>
+                <addDefaultImplementationEntries>true</addDefaultImplementationEntries>
+              </manifest>
+              <compress>true</compress>
+            </archive>
+          </configuration>
+        </plugin>
 
-                <plugin>
-                    <groupId>org.apache.maven.plugins</groupId>
-                    <artifactId>maven-jar-plugin</artifactId>
-                    <version>${plugin.version.org.apache.maven.plugins-maven-jar-plugin}</version>
-                    <configuration>
-                        <archive>
-                            <manifest>
-                                <addDefaultImplementationEntries>true</addDefaultImplementationEntries>
-                            </manifest>
-                            <compress>true</compress>
-                        </archive>
-                    </configuration>
-                </plugin>
+        <plugin>
+          <groupId>org.apache.maven.plugins</groupId>
+          <artifactId>maven-surefire-plugin</artifactId>
+          <version>${plugin.version.org.apache.maven.plugins-maven-surefire-plugin}</version>
+          <configuration>
+            <argLine>-Xmx512m</argLine>
+          </configuration>
+        </plugin>
 
-                <plugin>
-                    <groupId>org.apache.maven.plugins</groupId>
-                    <artifactId>maven-surefire-plugin</artifactId>
-                    <version>${plugin.version.org.apache.maven.plugins-maven-surefire-plugin}</version>
-                    <configuration>
-                        <argLine>-Xmx512m</argLine>
-                    </configuration>
-                </plugin>
+        <plugin>
+          <groupId>org.bsc.maven</groupId>
+          <artifactId>maven-processor-plugin</artifactId>
+          <version>${plugin.version.org.bsc.maven-maven-processor-plugin}</version>
+        </plugin>
 
-                <plugin>
-                  <groupId>org.bsc.maven</groupId>
-                  <artifactId>maven-processor-plugin</artifactId>
-                  <version>${plugin.version.org.bsc.maven-maven-processor-plugin}</version>
-                </plugin>
+        <plugin>
+          <groupId>org.codehaus.mojo</groupId>
+          <artifactId>exec-maven-plugin</artifactId>
+          <version>${plugin.version.org.codehaus.mojo-exec-maven-plugin}</version>
+        </plugin>
 
-                <plugin>
-                    <groupId>org.codehaus.mojo</groupId>
-                    <artifactId>exec-maven-plugin</artifactId>
-                    <version>${plugin.version.org.codehaus.mojo-exec-maven-plugin}</version>
-                </plugin>
+      </plugins>
+    </pluginManagement>
 
-            </plugins>
-        </pluginManagement>
+    <plugins>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-compiler-plugin</artifactId>
+        <configuration>
+          <source>${maven-compiler-source-version}</source>
+          <target>${maven-compiler-target-version}</target>
+          <optimize>true</optimize>
+          <debug>true</debug>
+          <showDeprecation>true</showDeprecation>
+          <showWarnings>true</showWarnings>
+        </configuration>
+      </plugin>
 
-        <plugins>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-compiler-plugin</artifactId>
-                <configuration>
-                    <source>${maven-compiler-source-version}</source>
-                    <target>${maven-compiler-target-version}</target>
-                    <optimize>true</optimize>
-                    <debug>true</debug>
-                    <showDeprecation>true</showDeprecation>
-                    <showWarnings>true</showWarnings>
-                </configuration>
-            </plugin>
-
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-enforcer-plugin</artifactId>
-                <executions>
-                    <execution>
-                        <phase>validate</phase>
-                        <goals>
-                            <goal>enforce</goal>
-                        </goals>
-                        <configuration>
-                            <rules>
-                                <requireMavenVersion>
-                                    <version>[3.0.4,)</version>
-                                </requireMavenVersion>
-                            </rules>
-                        </configuration>
-                    </execution>
-                </executions>
-            </plugin>
-        </plugins>
-    </build>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-enforcer-plugin</artifactId>
+        <executions>
+          <execution>
+            <phase>validate</phase>
+            <goals>
+              <goal>enforce</goal>
+            </goals>
+            <configuration>
+              <rules>
+                <requireMavenVersion>
+                  <version>[3.0.4,)</version>
+                </requireMavenVersion>
+              </rules>
+            </configuration>
+          </execution>
+        </executions>
+      </plugin>
+    </plugins>
+  </build>
 
 </project>
 
