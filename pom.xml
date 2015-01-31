@@ -245,24 +245,32 @@
       </plugin>
 
       <plugin>
-        <groupId>org.apache.maven.plugins</groupId>
-        <artifactId>maven-enforcer-plugin</artifactId>
+        <groupId>org.bsc.maven</groupId>
+        <artifactId>maven-processor-plugin</artifactId>
         <executions>
           <execution>
-            <phase>validate</phase>
+            <id>process</id>
             <goals>
-              <goal>enforce</goal>
+              <goal>process</goal>
             </goals>
+            <phase>generate-sources</phase>
             <configuration>
-              <rules>
-                <requireMavenVersion>
-                  <version>[3.0.4,)</version>
-                </requireMavenVersion>
-              </rules>
+              <processors>
+                <processor>org.jboss.logging.processor.apt.LoggingToolsProcessor</processor>
+              </processors>
             </configuration>
           </execution>
         </executions>
+        <dependencies>
+          <dependency>
+            <groupId>org.jboss.logging</groupId>
+            <artifactId>jboss-logging-processor</artifactId>
+            <version>${version.org.jboss.logging-jboss-logging-processor}</version>
+            <scope>compile</scope>
+          </dependency>
+        </dependencies>
       </plugin>
+
     </plugins>
   </build>
 
