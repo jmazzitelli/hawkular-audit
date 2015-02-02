@@ -14,7 +14,6 @@ import org.hawkular.audit.common.Subsystem;
 import org.hawkular.audit.common.log.MsgLogger;
 import org.hawkular.bus.common.MessageId;
 import org.hawkular.bus.common.consumer.BasicMessageListener;
-import org.jboss.logging.Logger;
 
 /**
  * Stores audit records in the backend data store via the given DataSource.
@@ -22,9 +21,6 @@ import org.jboss.logging.Logger;
  * @author John Mazzitelli
  */
 public class DataSourceConsumer extends BasicMessageListener<AuditRecord> {
-    private final MsgLogger msglog = Logger.getMessageLogger(MsgLogger.class, DataSourceConsumer.class.getPackage()
-            .getName());
-
     private DataSource dataSource;
     private SqlGenerator sqlGenerator;
 
@@ -101,18 +97,18 @@ public class DataSourceConsumer extends BasicMessageListener<AuditRecord> {
                         if (!tables.next()) {
                             Statement stmt = conn.createStatement();
                             stmt.executeUpdate(createString);
-                            msglog.infoAuditSchemaCreated();
+                            MsgLogger.LOGGER.infoAuditSchemaCreated();
                         } else {
-                            msglog.infoAuditSchemaExists();
+                            MsgLogger.LOGGER.infoAuditSchemaExists();
                         }
                     } catch (SQLException sqle) {
-                        msglog.errorAuditSchemaFailedCreation(sqle);
+                        MsgLogger.LOGGER.errorAuditSchemaFailedCreation(sqle);
                     } finally {
                         if (conn != null) {
                             try {
                                 conn.close();
                             } catch (SQLException sqle) {
-                                msglog.errorFailedToCloseConnection(sqle);
+                                MsgLogger.LOGGER.errorFailedToCloseConnection(sqle);
                             }
                         }
                     }

@@ -16,6 +16,7 @@
  */
 package org.hawkular.audit.log;
 
+import org.jboss.logging.Logger;
 import org.jboss.logging.Logger.Level;
 import org.jboss.logging.annotations.LogMessage;
 import org.jboss.logging.annotations.Message;
@@ -28,6 +29,8 @@ import org.jboss.logging.annotations.ValidIdRange;
 @MessageLogger(projectCode = "HAWKAUDIT")
 @ValidIdRange(min = 2000, max = 2999)
 public interface MsgLogger {
+    MsgLogger LOGGER = Logger.getMessageLogger(MsgLogger.class, MsgLogger.class.getPackage().getName());
+
     @LogMessage(level = Level.INFO)
     @Message(id = 2000, value = "Audit subsystem starting up")
     void infoAuditSubsystemStartingUpNot();

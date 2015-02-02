@@ -16,6 +16,7 @@
  */
 package org.hawkular.audit.common.log;
 
+import org.jboss.logging.Logger;
 import org.jboss.logging.Logger.Level;
 import org.jboss.logging.annotations.Cause;
 import org.jboss.logging.annotations.LogMessage;
@@ -29,6 +30,8 @@ import org.jboss.logging.annotations.ValidIdRange;
 @MessageLogger(projectCode = "HAWKAUDIT")
 @ValidIdRange(min = 1000, max = 1999)
 public interface MsgLogger {
+    MsgLogger LOGGER = Logger.getMessageLogger(MsgLogger.class, MsgLogger.class.getPackage().getName());
+
     @LogMessage(level = Level.INFO)
     @Message(id = 1000, value = "Audit schema has been created")
     void infoAuditSchemaCreated();
