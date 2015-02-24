@@ -28,14 +28,9 @@
   <baseDirectory>${project.build.finalName}</baseDirectory>
 
   <fileSets>
-    <!-- all non-binary files -->
     <fileSet>
-      <directory>${project.build.directory}/distro-resources</directory>
-      <outputDirectory>/wildfly-${version.org.wildfly}</outputDirectory>
-      <excludes>
-        <exclude>bin/*.sh</exclude>
-        <exclude>bin/*.bat</exclude>
-      </excludes>
+      <directory>src/main/distro-resources</directory>
+      <outputDirectory>/${nest.dist.zip.root.dir}</outputDirectory>
       <filtered>false</filtered>
       <fileMode>0644</fileMode>
       <directoryMode>0755</directoryMode>
@@ -50,17 +45,11 @@
         <include>org.hawkular.nest:hawkular-nest-distro</include>
       </includes>
       <unpack>true</unpack>
-      <unpackOptions>
-        <!-- exclude unwanted stuff and exclude stuff we want to overlay via our own distro-resources -->
-        <excludes>
-          <exclude>wildfly-${version.org.wildfly}/standalone/configuration/standalone.xml</exclude>
-        </excludes>
-      </unpackOptions>
     </dependencySet>
 
     <!-- all dependency jars that go in the modules directory -->
     <dependencySet>
-      <outputDirectory>wildfly-${version.org.wildfly}/modules/system/layers/base/org/hawkular/nest/main/deployments
+      <outputDirectory>${nest.dist.zip.root.dir}/modules/system/layers/base/org/hawkular/nest/main/deployments
       </outputDirectory>
       <useProjectArtifact>false</useProjectArtifact>
       <includes>

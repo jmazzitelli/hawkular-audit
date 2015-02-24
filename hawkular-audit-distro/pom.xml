@@ -31,6 +31,7 @@
   <name>Hawkular Audit Distribution</name>
 
   <properties>
+    <nest.dist.zip.root.dir>wildfly-${version.org.wildfly}</nest.dist.zip.root.dir>
   </properties>
 
   <dependencies>
@@ -52,28 +53,6 @@
   <build>
 
     <plugins>
-      <plugin>
-        <artifactId>maven-resources-plugin</artifactId>
-        <executions>
-          <execution>
-            <id>copy-distro-resources</id>
-            <phase>validate</phase>
-            <goals>
-              <goal>copy-resources</goal>
-            </goals>
-            <configuration>
-              <outputDirectory>${basedir}/target/distro-resources</outputDirectory>
-              <resources>
-                <resource>
-                  <directory>src/main/distro-resources</directory>
-                  <filtering>false</filtering> <!-- let the assembly filter if it wants -->
-                </resource>
-              </resources>
-            </configuration>
-          </execution>
-        </executions>
-      </plugin>
-
       <plugin>
         <artifactId>maven-assembly-plugin</artifactId>
         <configuration>
@@ -110,7 +89,7 @@
                 <configuration>
                   <target>
                     <unzip src="${project.build.directory}/${project.build.finalName}-distribution.zip" dest="${project.build.directory}" />
-                    <chmod dir="${project.build.directory}/wildfly-${version.org.wildfly}/bin" includes="*.sh"
+                    <chmod dir="${project.build.directory}/${nest.dist.zip.root.dir}/bin" includes="*.sh"
                       perm="u+x" type="file" />
                   </target>
                 </configuration>

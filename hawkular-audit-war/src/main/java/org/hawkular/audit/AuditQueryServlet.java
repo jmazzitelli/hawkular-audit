@@ -34,7 +34,7 @@ import javax.sql.DataSource;
 public class AuditQueryServlet extends HttpServlet {
     private static final long serialVersionUID = 1L;
 
-    @Resource(mappedName = "java:jboss/datasources/HawkularAuditDS")
+    @Resource(mappedName = "java:jboss/datasources/HawkularDS")
     private DataSource auditDataSource;
 
     public void service(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
