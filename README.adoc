@@ -1,1 +1,1 @@
-hawkular-audit
+hawkular-events
