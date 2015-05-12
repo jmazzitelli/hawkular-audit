@@ -75,6 +75,6 @@ public class EventRecordProcessor extends ConnectionContextFactory {
      * @return the endpoint used for all event messages
      */
     protected Endpoint getEndpoint() {
-        return new Endpoint(Type.QUEUE, "EventQueue");
+        return new Endpoint(Type.QUEUE, "EventsQueue");
     }
 }

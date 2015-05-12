@@ -27,9 +27,19 @@
     <servlet-class>org.hawkular.events.EventsQueryServlet</servlet-class>
   </servlet>
 
+  <servlet>
+    <servlet-name>EventsInsertServlet</servlet-name>
+    <servlet-class>org.hawkular.events.EventsInsertServlet</servlet-class>
+  </servlet>
+
   <servlet-mapping>
     <servlet-name>EventsQueryServlet</servlet-name>
     <url-pattern>/EventsQueryServlet</url-pattern>
+  </servlet-mapping>
+
+  <servlet-mapping>
+    <servlet-name>EventsInsertServlet</servlet-name>
+    <url-pattern>/EventsInsertServlet</url-pattern>
   </servlet-mapping>
 
 </web-app>
