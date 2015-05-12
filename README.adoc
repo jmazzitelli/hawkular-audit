@@ -1,1 +1,16 @@
 hawkular-events
+====
+
+mvn clean install from the top will create the Events API jar (containing domain object and bus client code), a WAR that listens to the bus and stores events it receives, and some test servlets that let you query the events (if being persisted in JDBC) and add events.
+
+To run, unzip the distro zip you find in hawkular-events-distro/target/ and run wildfly*/bin/standalone.sh. This starts a simple events server for testing.
+
+You can send event messages to the bus via curl over the bus' REST interface:
+
+curl -d "body={"subsystem":{"name":"mysub"},"message":"mymsg2","details":{"key2":"value2","key1":"value1"}}" http://localhost:8080/hawkular-bus/message/EventsQueue?type=queue
+
+Or you can use the test servlet to also add events (notice the parameters):
+
+http://localhost:8080/hawkular-events/EventsInsertServlet?message=MyMessage&subsystem=MYSUBSYS&detail1=value1&moreDetails=wotgorilla
+
+You can look at the events (if the backend storage is used) via http://localhost:8080/hawkular-events/EventsQueryServlet
