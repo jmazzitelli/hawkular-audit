@@ -1,7 +1,7 @@
 hawkular-events
 ====
 
-mvn clean install from the top will create the Events API jar (containing domain object and bus client code), a WAR that listens to the bus and stores events it receives, and some test servlets that let you query the events (if being persisted in JDBC) and add events.
+"mvn clean install" from the top will create the Events API jar (containing domain object and bus client code), a WAR that listens to the bus and stores events it receives, and some test servlets that let you query the events (if being persisted in JDBC) and add events.
 
 To run, unzip the distro zip you find in hawkular-events-distro/target/ and run wildfly*/bin/standalone.sh. This starts a simple events server for testing.
 
@@ -13,4 +13,8 @@ Or you can use the test servlet to also add events (notice the parameters):
 
 http://localhost:8080/hawkular-events/EventsInsertServlet?message=MyMessage&subsystem=MYSUBSYS&detail1=value1&moreDetails=wotgorilla
 
-You can look at the events (if the backend storage is used) via http://localhost:8080/hawkular-events/EventsQueryServlet
+Those two methods described above will send events that will eventually get stored in backend storage. You can optionally send an event that only gets logged to the server's log file - nothing will get persisted in a backend datastore. You do this by passing in the parameter "logonly=true" to the test servlet (this is the same as the above URL with that parameter added):
+
+http://localhost:8080/hawkular-events/EventsInsertServlet?message=MyMessage&subsystem=MYSUBSYS&detail1=value1&moreDetails=wotgorilla&logonly=true
+
+You can look at the events that were stored in the backend storage (not the log-only events) via http://localhost:8080/hawkular-events/EventsQueryServlet

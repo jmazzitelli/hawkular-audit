@@ -23,11 +23,14 @@ import java.util.HashMap;
 
 import javax.annotation.Resource;
 import javax.jms.ConnectionFactory;
+import javax.jms.JMSException;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.hawkular.bus.common.Endpoint;
+import org.hawkular.bus.common.Endpoint.Type;
 import org.hawkular.events.common.EventRecord;
 import org.hawkular.events.common.EventRecordProcessor;
 import org.hawkular.events.common.Subsystem;
@@ -43,15 +46,17 @@ public class EventsInsertServlet extends HttpServlet {
         String subsystemName = null;
         HashMap<String, String> details = null;
 
+        boolean logOnly = false;
         Enumeration<String> paramNames = request.getParameterNames();
         while (paramNames.hasMoreElements()) {
             String paramName = paramNames.nextElement();
             String paramValue = request.getParameter(paramName);
-
             if (paramName.equals("message")) {
                 message = paramValue;
             } else if (paramName.equals("subsystem")) {
                 subsystemName = paramValue;
+            } else if (paramName.equals("logonly")) {
+                logOnly = Boolean.parseBoolean(paramValue);
             } else {
                 if (details == null) {
                     details = new HashMap<String, String>();
@@ -69,17 +74,47 @@ public class EventsInsertServlet extends HttpServlet {
         }
 
         try {
-            // put the event on the bus
-            EventRecordProcessor processor = new EventRecordProcessor(this.connectionFactory);
-            EventRecord record = new EventRecord(message, new Subsystem(subsystemName), details);
-            processor.sendEventRecord(record);
+            // send the event
+            EventRecord record;
+
+            if (!logOnly) {
+                record = sendEvent(message, subsystemName, details);
+            } else {
+                record = sendLogOnlyEvent(message, subsystemName, details);
+            }
 
             // let the user know what we did
             PrintWriter writer = response.getWriter();
-            writer.println("<p>INSERTED EVENT</p><p>" + record.toJSON() + "</p>");
+            writer.println("<p><b>SENT EVENT:</b></p><p>" + record.toJSON() + "</p>");
         } catch (Exception e) {
             throw new ServletException(e);
         }
 
+    }
+
+    private EventRecord sendEvent(String message, String subsystemName, HashMap<String, String> details)
+            throws JMSException {
+        // put the event on the bus
+        EventRecordProcessor processor = new EventRecordProcessor(this.connectionFactory);
+        EventRecord record = new EventRecord(message, new Subsystem(subsystemName), details);
+        processor.sendEventRecord(record);
+        return record;
+    }
+
+    private EventRecord sendLogOnlyEvent(String message, String subsystemName, HashMap<String, String> details)
+            throws JMSException {
+
+        // this shows how we can extend the processor to send to different endpoints (in this case a different queue)
+        // I could have alternatively designed this log-only stuff with filters, but this is just an illustration.
+        EventRecordProcessor processor = new EventRecordProcessor(this.connectionFactory) {
+            @Override
+            protected Endpoint getEndpoint() {
+                return new Endpoint(Type.QUEUE, "LogOnlyEventsQueue");
+            }
+        };
+
+        EventRecord record = new EventRecord(message, new Subsystem(subsystemName), details);
+        processor.sendEventRecord(record);
+        return record;
     }
 }
