@@ -18,3 +18,5 @@ Those two methods described above will send events that will eventually get stor
 http://localhost:8080/hawkular-events/EventsInsertServlet?message=MyMessage&subsystem=MYSUBSYS&detail1=value1&moreDetails=wotgorilla&logonly=true
 
 You can look at the events that were stored in the backend storage (not the log-only events) via http://localhost:8080/hawkular-events/EventsQueryServlet
+
+The hawkular-events-distro is here mainly for testing. It just builds a Wildfly container that has the bus and only the events component. It is a mini-kettle.
